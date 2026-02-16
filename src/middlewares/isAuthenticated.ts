@@ -22,9 +22,10 @@ export function isAuthenticated(
 
 	try {
 		const { sub } = verify(token!, process.env.JWT_SECRET as string) as PayLoad;
-		console.log(sub);
+
+		req.user_id = sub;
 	} catch (err) {
-		res.status(401).json({
+		return res.status(401).json({
 			error: "Token inválido",
 		});
 	}
